@@ -272,7 +272,7 @@ extension SZAVPlayerAssetLoader: SZAVPlayerDataLoaderDelegate {
 
     func dataLoader(_ loader: SZAVPlayerDataLoader, didFailWithError error: Error) {
         currentRequest?.loadingRequest.finishLoading(with: error)
-        currentRequest = nil
+//        currentRequest = nil
 
         delegate?.assetLoader(self, downloadingFailed: error)
     }

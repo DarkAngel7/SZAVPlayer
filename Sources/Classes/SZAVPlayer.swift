@@ -25,6 +25,7 @@ public enum SZAVPlayerStatus: Int {
     case playbackStalled
     case bufferBegin
     case bufferEnd
+    case initial
 }
 
 /// AVPlayer remote command, e.g. playback related operations from the lock screen. You can
@@ -96,12 +97,16 @@ public class SZAVPlayer: UIView {
         let time = CMTimeGetSeconds(currentItem.currentTime())
         return time.isSafe() ? time : 0
     }
+    public var isPlaying: Bool {
+        (player?.rate ?? 0) > 0
+    }
 
     private(set) public var playerLayer: AVPlayerLayer?
     private(set) public var player: AVPlayer?
     private(set) public var playerItem: AVPlayerItem?
     private(set) public var currentURLStr: String?
     private(set) public var loadedTime: Float64 = 0
+    private(set) public var status: SZAVPlayerStatus = .initial
 
     private lazy var videoOutput: AVPlayerItemVideoOutput = createVideoOutput()
     private let videoOutputQueue: DispatchQueue = DispatchQueue(label: "com.SZAVPlayer.videoOutput")
@@ -361,6 +366,7 @@ extension SZAVPlayer {
     }
 
     private func handlePlayerStatus(status: SZAVPlayerStatus) {
+        self.status = status
         delegate?.avplayer(self, didChanged: status)
     }
 
