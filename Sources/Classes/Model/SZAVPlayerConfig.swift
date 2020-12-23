@@ -17,6 +17,7 @@ public struct SZAVPlayerConfig {
     public var timeObserverInterval: Float64 = 1    // TimeObserver interval, default value is 1s.
     public var isLocalURL: Bool = false
     public var videoGravity: AVLayerVideoGravity = .resizeAspect
+    public var enableCache: Bool = true
 
     public init(urlStr: String, uniqueID: String?, isVideo: Bool = false, isVideoOutputEnabled: Bool = false) {
         self.urlStr = urlStr

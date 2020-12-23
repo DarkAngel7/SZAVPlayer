@@ -43,9 +43,9 @@ public class SZAVPlayerAssetLoader: NSObject {
         SZLogInfo("deinit")
     }
 
-    public func loadAsset(isLocalURL: Bool = false, completion: @escaping (AVURLAsset) -> Void) {
+    public func loadAsset(isLocalURL: Bool = false, enableCache: Bool = true, completion: @escaping (AVURLAsset) -> Void) {
         var asset: AVURLAsset
-        if isLocalURL {
+        if isLocalURL || !enableCache {
             asset = AVURLAsset(url: url)
         } else if let urlWithSchema = url.withScheme(SZAVPlayerItemScheme) {
             asset = AVURLAsset(url: urlWithSchema)
