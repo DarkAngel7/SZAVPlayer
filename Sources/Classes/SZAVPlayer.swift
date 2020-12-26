@@ -100,6 +100,14 @@ public class SZAVPlayer: UIView {
     public var isPlaying: Bool {
         (player?.rate ?? 0) > 0
     }
+    
+    public var enableRemoteCommand = false {
+        didSet {
+            if enableRemoteCommand {
+                setupRemoteTransportControls()
+            }
+        }
+    }
 
     private(set) public var playerLayer: AVPlayerLayer?
     private(set) public var player: AVPlayer?
@@ -128,7 +136,6 @@ public class SZAVPlayer: UIView {
 
         backgroundColor = .clear
         SZAVPlayerCache.shared.setup(maxCacheSize: 100)
-        setupRemoteTransportControls()
     }
 
     required init?(coder: NSCoder) {
