@@ -100,6 +100,11 @@ public class SZAVPlayer: UIView {
     public var isPlaying: Bool {
         (player?.rate ?? 0) > 0
     }
+    public var rate: Float = 1 {
+        didSet {
+            player?.rate = rate
+        }
+    }
     
     public var enableRemoteCommand = false {
         didSet {
@@ -210,11 +215,12 @@ extension SZAVPlayer {
             videoOutput.requestNotificationOfMediaDataChange(withAdvanceInterval: 0.03)
         }
         player.play()
+        player.rate = rate
     }
 
     /// Pause the playing.
     public func pause() {
-        guard let player = player, player.rate == 1.0 else { return }
+        guard let player = player, player.rate > 0 else { return }
 
         player.pause()
     }
