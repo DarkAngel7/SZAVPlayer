@@ -186,7 +186,10 @@ extension SZAVPlayer {
         isReadyToPlay = false
         currentURLStr = config.urlStr
         let assetLoader = createAssetLoader(url: url, uniqueID: config.uniqueID)
-        assetLoader.loadAsset(isLocalURL: config.isLocalURL, enableCache: config.enableCache) { (asset) in
+        assetLoader.loadAsset(isLocalURL: config.isLocalURL, enableCache: config.enableCache) {[weak assetLoader] (asset) in
+            // fix bug
+            guard assetLoader != nil, assetLoader == self.assetLoader else { return }
+            
             if let _ = self.player {
                 self.replacePalyerItem(asset: asset)
             } else {
