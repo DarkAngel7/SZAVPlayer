@@ -54,11 +54,10 @@ public class SZAVPlayerAssetLoader: NSObject {
             assertionFailure("URL schema is empty, please make sure to use the correct initilization func.")
             return
         }
-
+        DispatchQueue.main.async {
+            completion(asset)
+        }
         asset.loadValuesAsynchronously(forKeys: ["playable"]) {
-            DispatchQueue.main.async {
-                completion(asset)
-            }
         }
 
         urlAsset = asset
