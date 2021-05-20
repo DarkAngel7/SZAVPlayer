@@ -294,6 +294,7 @@ extension SZAVPlayer {
         isSeeking = true
 
         let toTime = CMTimeMakeWithSeconds(time, preferredTimescale: player.currentTime().timescale)
+        player.cancelPendingPrerolls()
         player.seek(to: toTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] (finished) in
             self?.isSeeking = false
 
