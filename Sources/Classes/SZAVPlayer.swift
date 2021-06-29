@@ -367,6 +367,7 @@ extension SZAVPlayer {
             if !isReadyToPlay {
                 isReadyToPlay = true
                 if let seekItem = seekItem {
+                    handlePlayerStatus(status: .readyToPlay)
                     seekPlayerToTime(time: seekItem.time, autoPlay: seekItem.autoPlay, completion: seekItem.completion)
                     self.seekItem = nil
                 } else {
